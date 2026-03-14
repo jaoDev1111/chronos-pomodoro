@@ -38,7 +38,6 @@ export const Menu = () => {
 
   // Só vai executar esse useEffect quando a dependencia mudar
   useEffect(() => {
-    console.log('Altera o tema da aplicação toda', Date.now());
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
   }, [theme]);

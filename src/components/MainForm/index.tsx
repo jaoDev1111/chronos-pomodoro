@@ -2,16 +2,26 @@ import { PlaySquareIcon, StopCircleIcon } from 'lucide-react';
 import { BaseButton } from '../BaseButton';
 import { BaseInput } from '../BaseInput';
 import { Cycles } from '../Cycles';
+import { useRef } from 'react';
 
 export const MainForm = () => {
+  const taskNameInput = useRef<HTMLInputElement>(null);
+
+  const handleSubmitForm = (e: React.SubmitEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    alert(`${taskNameInput.current?.value}`);
+  };
+
   return (
-    <form className='form' action=''>
+    <form onSubmit={e => handleSubmitForm(e)} className='form' action=''>
       <div className='formRow'>
         <BaseInput
           id='task'
           label='Task'
           type='text'
           placeholder='Digite algo...'
+          ref={taskNameInput}
         />
       </div>
 
