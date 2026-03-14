@@ -4,16 +4,15 @@ import { Menu } from './components/Menu';
 import { CountDown } from './components/CountDown';
 import { BaseInput } from './components/BaseInput';
 import { Cycles } from './components/Cycles';
+import { BaseButton } from './components/BaseButton';
+import { Footer } from './components/Footer';
 
 import { PlaySquareIcon, StopCircleIcon, TimerIcon } from 'lucide-react';
 
 import './styles/theme.css';
 import './styles/globals.css';
-import { BaseButton } from './components/BaseButton';
 
 function App() {
-  console.log('Teste');
-
   return (
     <>
       <Container>
@@ -62,6 +61,10 @@ function App() {
             </BaseButton>
           </div>
         </form>
+      </Container>
+
+      <Container>
+        <Footer />
       </Container>
     </>
   );
