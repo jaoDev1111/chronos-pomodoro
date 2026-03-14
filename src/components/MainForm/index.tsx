@@ -55,6 +55,17 @@ export const MainForm = () => {
     });
   };
 
+  const handleInterruptTask = () => {
+    setState(prevState => {
+      return {
+        ...prevState,
+        activeTask: null,
+        secondsRemaining: 0,
+        formattedSecondsRemaining: '00:00',
+      };
+    });
+  };
+
   return (
     <form onSubmit={e => handleSubmitForm(e)} className='form' action=''>
       <div className='formRow'>
@@ -64,6 +75,7 @@ export const MainForm = () => {
           type='text'
           placeholder='Digite algo...'
           ref={taskNameInput}
+          disabled={!!state.activeTask}
         />
       </div>
 
@@ -71,20 +83,36 @@ export const MainForm = () => {
         <p>Lorem ipsum dolor sit amet.</p>
       </div>
 
-      <div className='formRow'>
-        <Cycles />
-      </div>
+      {state.currentCycle > 0 && (
+        <div className='formRow'>
+          <Cycles />
+        </div>
+      )}
 
       <div className='formRow'>
-        <BaseButton>
-          <PlaySquareIcon />
-          <p>Iniciar</p>
-        </BaseButton>
-
-        <BaseButton color='red'>
-          <StopCircleIcon />
-          <p>Parar</p>
-        </BaseButton>
+        {!state.activeTask ? (
+          <BaseButton
+            key='This is submit button'
+            aria-label='Iniciar nova tarefa'
+            title='Iniciar nova tarefa'
+            type='submit'
+          >
+            <PlaySquareIcon />
+            <p>Iniciar</p>
+          </BaseButton>
+        ) : (
+          <BaseButton
+            key='No submit form'
+            type='button'
+            aria-label='Interromper tarefa atual'
+            title='Interromper tarefa atual'
+            color='red'
+            onClick={handleInterruptTask}
+          >
+            <StopCircleIcon />
+            <p>Parar</p>
+          </BaseButton>
+        )}
       </div>
     </form>
   );
