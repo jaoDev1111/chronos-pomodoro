@@ -5,10 +5,11 @@ import { CountDown } from './components/CountDown';
 import { BaseInput } from './components/BaseInput';
 import { Cycles } from './components/Cycles';
 
-import { TimerIcon } from 'lucide-react';
+import { PlaySquareIcon, StopCircleIcon, TimerIcon } from 'lucide-react';
 
 import './styles/theme.css';
 import './styles/globals.css';
+import { BaseButton } from './components/BaseButton';
 
 function App() {
   console.log('Teste');
@@ -50,7 +51,15 @@ function App() {
           </div>
 
           <div className='formRow'>
-            <button>Enviar</button>
+            <BaseButton>
+              <PlaySquareIcon />
+              <p>Iniciar</p>
+            </BaseButton>
+
+            <BaseButton color='red'>
+              <StopCircleIcon />
+              <p>Parar</p>
+            </BaseButton>
           </div>
         </form>
       </Container>

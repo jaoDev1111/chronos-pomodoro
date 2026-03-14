@@ -1,0 +1,51 @@
+.button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.8rem;
+  border: none;
+  background-color: var(--primary);
+  color: var(--text-over-primary);
+  padding: 0.8rem;
+  border-radius: 0.6rem;
+  cursor: pointer;
+  min-width: 24rem;
+  font-weight: 600;
+  margin: 3.2rem 0;
+  transition: 0.2s all ease-in-out;
+}
+
+.button svg {
+  width: 2.4rem;
+  height: 2.4rem;
+  color: inherit;
+}
+
+.button:focus {
+  border: none;
+}
+
+.button:hover {
+  filter: brightness(80%);
+}
+
+.button:disabled svg {
+  color: var(--text-muted);
+}
+
+.button:disabled {
+  background-color: var(--disabled);
+  border-bottom: 0.2rem solid var(--error);
+  color: var(--text-muted);
+  cursor: not-allowed;
+}
+
+.green {
+  background-color: var(--primary);
+  color: var(--text-over-primary);
+}
+
+.red {
+  background-color: var(--error);
+  color: var(--text-over-error);
+}
