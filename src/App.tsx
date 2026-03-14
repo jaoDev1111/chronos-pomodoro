@@ -1,14 +1,15 @@
+import { TaskContextProvider } from './contexts/TaskContext/TaskContextProvider';
 import { Home } from './pages/Home';
 
 import './styles/theme.css';
 import './styles/globals.css';
-import { NotFound } from './pages/NotFound';
-import { AboutPomodoro } from './pages/AboutPomodoro';
 
 function App() {
   return (
     <>
-      <Home />
+      <TaskContextProvider>
+        <Home />
+      </TaskContextProvider>
     </>
   );
 }
