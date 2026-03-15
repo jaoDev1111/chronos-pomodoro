@@ -1,22 +1,37 @@
+import { useRef } from 'react';
 import { PlaySquareIcon, StopCircleIcon } from 'lucide-react';
 import { BaseButton } from '../BaseButton';
 import { BaseInput } from '../BaseInput';
 import { Cycles } from '../Cycles';
-import { useRef } from 'react';
-import type { TaskModel } from '../../models/TaskModel';
-import { useTaskContext } from '../../contexts/TaskContext/useTaskContext';
+import { Tips } from '../Tips';
+
 import { getNextCycle } from '../../utils/getNextCycle';
 import { getNextCycleType } from '../../utils/getNextCycleType';
-import { formatSecondsToMinutes } from '../../utils/formatSecondsToMinutes';
+
+import { useTaskContext } from '../../hooks/useTaskContext';
+import { TaskActionTypes } from '../../reducers/taskActions';
+
+import type { TaskModel } from '../../models/TaskModel';
 
 export const MainForm = () => {
-  const { state, setState } = useTaskContext();
+  const { state, dispatch } = useTaskContext();
   const taskNameInput = useRef<HTMLInputElement>(null);
 
   // Ciclos
   const nextCycle = getNextCycle(state.currentCycle);
   const nextCycleType = getNextCycleType(nextCycle);
 
+  /**
+   * Usuário digita título
+          ↓
+    Form submit
+          ↓
+    dispatch START_TASK
+          ↓
+    Reducer adiciona task
+          ↓
+    Task vira activeTask
+   */
   const handleSubmitForm = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -40,30 +55,11 @@ export const MainForm = () => {
       type: nextCycleType,
     };
 
-    const secondsRemaining = newTask.duration * 60;
-
-    setState(prevState => {
-      return {
-        ...prevState,
-        config: { ...prevState.config },
-        activeTask: newTask,
-        currentCycle: nextCycle, // Conferir
-        secondsRemaining,
-        formattedSecondsRemaining: formatSecondsToMinutes(secondsRemaining),
-        tasks: [...prevState.tasks, newTask],
-      };
-    });
+    dispatch({ type: TaskActionTypes.START_TASK, payload: newTask });
   };
 
   const handleInterruptTask = () => {
-    setState(prevState => {
-      return {
-        ...prevState,
-        activeTask: null,
-        secondsRemaining: 0,
-        formattedSecondsRemaining: '00:00',
-      };
-    });
+    dispatch({ type: TaskActionTypes.INTERRUPT_TASK });
   };
 
   return (
@@ -80,7 +76,7 @@ export const MainForm = () => {
       </div>
 
       <div className='formRow'>
-        <p>Lorem ipsum dolor sit amet.</p>
+        <Tips />
       </div>
 
       {state.currentCycle > 0 && (

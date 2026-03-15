@@ -1,16 +1,19 @@
+// Definição do Estado
+
 import { createContext } from 'react';
-import { initialTaskState } from './initialTaskState';
 
 import type { TaskStateModel } from '../../models/TaskStateModel';
+import { initialTaskState } from '../../states/initialTaskState';
+import type { TaskActionModel } from '../../reducers/taskActions';
 
 type TaskContextProps = {
   state: TaskStateModel;
-  setState: React.Dispatch<React.SetStateAction<TaskStateModel>>;
+  dispatch: React.Dispatch<TaskActionModel>;
 };
 
 const initialContextValue = {
   state: initialTaskState,
-  setState: () => {},
+  dispatch: () => {},
 };
 
 // Criação do Contexto
